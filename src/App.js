@@ -53,7 +53,7 @@ class Clock extends React.Component {
 
   render() {
     return (
-      <h4>It is {this.state.date.toLocaleTimeString()}</h4>
+      <h3>It is {this.state.date.toLocaleTimeString()}</h3>
     )
   }
 }
@@ -68,17 +68,54 @@ class Toggle extends React.Component {
   handleClick() {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
-    }))
-    if(this.state == {isToggleOn: true}) {
-
+    }));
+    if(this.state.isToggleOn) {
+      console.log("Toggle On");
+      
+    } else {
+      console.log("Toggle Off");
     }
   }
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </button>
+      <div>
+        <h3>Click For Surprise</h3>
+        <button onClick={this.handleClick}>
+          {this.state.isToggleOn ? 'ON' : 'OFF'}
+        </button>
+      </div>
+    );
+  }
+}
+
+class NumberInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A Number Was Submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form>
+        <label>
+          Number:
+          <input type='text' value={this.state.value} onChange={this.handleChange}></input>
+        </label>
+        <input type='submit' value="Submit" />
+      </form>
     );
   }
 }
@@ -91,7 +128,8 @@ function App() {
       {/* To use Boolean Values true is present and false is omitted */}
       <FirstTime isFirstTime='true'></FirstTime>
       <Clock />
-      <Toggle style={{color: 'red'}} />
+      <Toggle />
+      <NumberInput />
     </div>
   );
 }
